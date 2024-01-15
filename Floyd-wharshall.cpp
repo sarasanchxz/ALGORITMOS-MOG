@@ -9,7 +9,7 @@ const int INF = 100000; //cuando no hay arista entre vertices
 
 struct tResult {  //Guarda los resultados del algoritmo Floyd-Wharshall
 
-    vector<vector<int>> vPonderada;
+    vector<vector<int>> vDistancia;
     vector<vector<int>> vRecorrido;
 };
 
@@ -22,12 +22,12 @@ tResult floydWarshall(vector<vector<int>> & grafo1) {
 
     vector<vector<int>> vRecorrido(V, vector<int>(V));  //matriz de recorridos, Ej: (P[i][j] = 3 ,vertice anterior a j n el camino mas corto de i a j seria 3)
                                                        
-    vector<vector<int>> vPonderada(V, vector<int>(V));  //matriz de pesos, guarda distancia mas corta  entre todos los pares de vertices 
+    vector<vector<int>> vDistancias(V, vector<int>(V));  //matriz de pesos, guarda distancia mas corta  entre todos los pares de vertices 
                                                        
 
     for (int i = 0; i < V; i++) {       // inicializacion de matrices
         for (int j = 0; j < V; j++) {
-            vPonderada[i][j] = grafo1[i][j];  
+            vDistancias[i][j] = grafo1[i][j];  
             vRecorrido[i][j] = i;            
         }
     }
@@ -36,8 +36,8 @@ tResult floydWarshall(vector<vector<int>> & grafo1) {
     for (int k = 0; k < V; k++) {
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
-                if (vPonderada[i][k] + vPonderada[k][j] < vPonderada[i][j]) {
-                    vPonderada[i][j] = vPonderada[i][k] + vPonderada[k][j];
+                if (vDistancias[i][k] + vDistancias[k][j] < vDistancias[i][j]) {
+                    vDistancias[i][j] = vDistancias[i][k] + vDistancias[k][j];
                     vRecorrido[i][j] = k;
                 }
             }
@@ -45,7 +45,7 @@ tResult floydWarshall(vector<vector<int>> & grafo1) {
     }
 
     tResult sol;
-    sol.vPonderada = vPonderada;
+    sol.vDistancia = vDistancias;
     sol.vRecorrido = vRecorrido;
 
     return sol; 
@@ -97,7 +97,7 @@ int main() {
 
     tResult sol = floydWarshall(grafo1);
     cout << "Grafo 1 :" << endl;
-    caminos(sol.vPonderada, sol.vRecorrido);
+    caminos(sol.vDistancia, sol.vRecorrido);
     cout << endl;
 
    // Ejemplo 2 
@@ -111,7 +111,7 @@ int main() {
 
     tResult sol2 = floydWarshall(grafo2);
     cout << "Grafo 2 :" << endl;
-    caminos(sol2.vPonderada, sol2.vRecorrido);
+    caminos(sol2.vDistancia, sol2.vRecorrido);
   
     return 0;
 }
