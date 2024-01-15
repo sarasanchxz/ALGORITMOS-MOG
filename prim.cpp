@@ -3,6 +3,8 @@
 
 using namespace std;
 
+const int INF = 100000; //para representar que no hay arista 
+
 
 struct tResult {
 
@@ -18,7 +20,7 @@ tResult menorPeso(vector<bool>& vAEM, int V, vector<vector<int>>& grafo) {
 
     tResult result;
    
-    int minPeso = 1000000; //numero grande
+    int minPeso = INF; //numero grande
     int origen = 0;
     int destino = 0;
 
@@ -28,7 +30,7 @@ tResult menorPeso(vector<bool>& vAEM, int V, vector<vector<int>>& grafo) {
 
             for (int v = 0; v < V; v++) {
 
-                if (grafo[u][v] != 0 && grafo[u][v] < minPeso && vAEM[v]== false ) { //que sea menor y que no una un nodo ya seleccionado 
+                if (grafo[u][v] != INF && grafo[u][v] < minPeso && vAEM[v]== false ) { //que sea menor y que no una un nodo ya seleccionado 
                    
                     minPeso = grafo[u][v];
                     destino = v; //vertice destino 
@@ -88,12 +90,11 @@ int main() {
     // Ejemplo 1
     vector<vector<int>> grafo1 = {
 
-      //MATRIZ ADYACENCIA 
-        {0, 2, 0, 1, 0},
-        {2, 0, 1, 4, 3},
-        {0, 1, 0, 0, 7},
-        {1, 4, 0, 0, 5},
-        {0, 3, 7, 5, 0}
+        {INF, 2, INF, 1, INF},
+        {2, INF, 1, 4, 3},
+        {INF, 1, INF, INF, 7},
+        {1, 4, INF, INF, 5},
+        {INF, 3, 7, 5, INF}
     };
 
     cout << "Ejemplo 1 : Grafo 1" << endl;
@@ -102,12 +103,12 @@ int main() {
     // Ejemplo 2
     vector<vector<int>> grafo2 = {
 
-      //MATRIZ ADYACENCIA 
-        {0, 3, 0, 0, 0},
-        {3, 0, 1, 0, 0},
-        {0, 1, 0, 7, 0},
-        {0, 0, 7, 0, 2},
-        {0, 0, 0, 2, 0}
+      
+        {INF, 3, INF, INF, INF},
+        {3, INF, 1, INF,INF},
+        {INF, 1, INF, 7, INF},
+        {INF, INF, 7, INF, 2},
+        {INF, INF, INF, 2, INF}
     };
 
     cout << "Ejemplo 2: Grafo 2" << endl;
